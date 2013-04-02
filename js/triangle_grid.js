@@ -9,7 +9,7 @@ b_context,
 curX = 0,
 curY = 0, 
 w = 11,
-margin = .5,
+margin = 0,
 size = 20,
 curRowNum,
 curColor;
