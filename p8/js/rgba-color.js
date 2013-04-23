@@ -1,5 +1,5 @@
 
-console.log("howdy from rgba-color.js")
+// console.log("howdy from rgba-color.js")
 
 function RGBAColor(r, g, b, alpha) {
     this.r = r;

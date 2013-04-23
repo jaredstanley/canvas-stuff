@@ -2,25 +2,35 @@ var colorInc = 200;
 // var colorInc = Math.random()*360;
 var cObj = new RGBAColor(0, 200, 130, 1);
 //
-var b_canvas,
-contxt,
+var main_canvas,
+main_context,
+source_canvas,
+source_context,
+sourceImage,
+sourceImageData,
 colorsArr = ["#00a19a", "#04bf9d", "#f2e85c","#f53d54","#404040"]
 curX = 0,
 curY = 0, 
 size = 15,
 tgtX=0, 
-tgtY =0,
+tgtY = 0,
+newX = 0,
+newY = 0,
 dotArray = [];
 
 //
 function start(){
-	b_canvas = document.getElementById("c");
-	contxt = b_canvas.getContext("2d");
-
+	main_canvas = document.getElementById("c");
+	main_context = main_canvas.getContext("2d");
+	source_canvas = document.getElementById("source");
+	source_context = source_canvas.getContext("2d");
+	
 
 	createDots();
 	
-	initTimer();
+	 initTimer();
+
+	initSrcImage();
 	
 }
 
@@ -45,18 +55,21 @@ function Dot(i, rad, x, y, speed, color, tgtX, tgtY){
 
 function createDots(){
 	var rad;
-	for (var i = 0; i < 500; i++) {
-			colorInc-=.33;
+	for (var i = 0; i < 100; i++) {
+			// colorInc-=.33;
 		tgtX = Math.random()*600;
 		tgtY = Math.random()*600;
-		rad = Math.round(Math.random()*5)+3;
+		rad = 3;
+		// rad = Math.round(Math.random()*5)+3;
 	    var dot = new Dot(i, 
 	    				rad, 
 	    				Math.random()*600, 
 	    				Math.random()*600,
-	    				Math.random()*3, 
-	    				randColor(colorInc%360, .7, .8, 1),
-	    				tgtX, tgtY);
+	    				.1, 
+	    				// randColor(colorInc%360, .7, .8, 1),
+	    				randColor(180, .7, .8, 1),
+	    				tgtX, 
+	    				tgtY);
 	    dotArray.push(dot);
 	    // console.log(dot);
 	}
@@ -64,15 +77,29 @@ function createDots(){
 
 function update() {
 	// console.log('test');
-	contxt.clearRect(0,0,900,900);
-	for (var i = 0; i < 300; i++) {
-	    var item = dotArray[i];
-	    contxt.fillStyle = item.color;
-	    contxt.beginPath();
+	// main_context.clearRect(0,0,600,600);
+	var hit,item;
+	var l = dotArray.length;
+
+	for (var i = 0; i < l; i++) {
+	    item = dotArray[i];
+	    hit = getColorAtPoint(item.x, item.y);
+	    if(hit>1){
+	    	main_context.fillStyle = "#333333";	
+	    }else{
+	    	main_context.fillStyle = "#FF4500";
+	    }
+	    
+	    newX = (item.tgtX-item.x)*item.speed + item.x;
+	    newY = (item.tgtY-item.y)*item.speed + item.y;
 	   // console.log(item.x);
-	     item.x+=(item.tgtX-item.x)/10;
-	   // item.x = item.tgtX;
-	    item.y+=(item.tgtY-item.y)/10;
+	     // item.x+=(item.tgtX-item.x)/item.speed
+	   item.x = newX;
+	   item.y = newY;
+	    // item.y+=(item.tgtY-item.y)/item.speed;
+	     
+
+	    // console.log('test '+t);
 
 	    if(Math.abs(item.x-item.tgtX)<1){
 	    	item.tgtX = Math.random()*600;
@@ -80,15 +107,35 @@ function update() {
 	    }
 	    
 
-	    contxt.arc(item.x, item.y, item.rad, 0,2*Math.PI, false);	
+	    main_context.beginPath();
+	    main_context.arc(item.x, item.y, item.rad, 0,2*Math.PI, false);	
 	    
-	    contxt.fill();
+	    main_context.fill();
 
 	}
 	// console.log('update '+ dotArray[i]);
 	
 	
 
+}
+
+
+function getColorAtPoint(x, y){
+	   return source_context.getImageData(x,y,1,1).data[0];
+
+	// return main_context.getImageData(x,y,1,1).data;
+}
+
+function initSrcImage(){	
+	sourceImage = new Image();
+
+      sourceImage.onload = function() {
+        source_context.drawImage(sourceImage, 0, 0);
+        //getColorAtPoint(Math.random()*600,Math.random()*600);
+      
+      };
+      // sourceImage.src = 'tree.jpg';
+      sourceImage.src = 'sf.gif';
 }
 
 
