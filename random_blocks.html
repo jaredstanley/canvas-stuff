@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<head>
+<title>Canvas Playing</title>
+
+<script type="text/javascript">
+
+var count = 0;
+var colArr = new Array("a9ab2e", "3b2212", "7d2f1c", "f2782e", "ffa736");
+var b_context;
+function start(){
+var interval = setInterval(update,3);
+}
+
+function update() {
+var b_canvas = document.getElementById("c");
+b_context = b_canvas.getContext("2d");
+//var color = 453632;
+//var r_r = Math.random()*55;
+//var r_g = Math.random()*55;
+//var r_b = Math.random()*55;
+
+var r_a = Math.random();
+
+b_context.fillStyle= randColor();
+
+//draws rect
+//b_context.fillRect(Math.random()*600, Math.random()*400, Math.random()*220+10, Math.random()*140+10);
+
+//circle
+b_context.beginPath();
+b_context.arc(Math.random()*1000,Math.random()*1000,Math.random()*80,40,Math.PI*2,true);
+addShadow();
+b_context.closePath();
+b_context.fill(); 
+countIt();
+}
+
+
+function addShadow(){
+
+b_context.shadowOffsetX = 5;
+b_context.shadowOffsetY = 5;
+b_context.shadowBlur    = 8;
+b_context.shadowColor   = 'rgba(0, 0, 0, 0.3)';
+
+
+}
+
+function countIt(){
+  b_context.shadowColor   = 'rgba(0, 0, 0, 0)';	
+  b_context.clearRect(0, 0, 350, 50);
+  b_context.lineWidth=1;
+  b_context.fillStyle="#666666";
+  b_context.font="30px sans-serif";
+  b_context.fillText("> "+count, 10, 30);
+  b_context.fillStyle= randColor();
+	count++;
+
+
+}
+
+function randColor(){
+//var string = Math.round(0x2233ff*Math.random()).toString(16);
+//alert(string);
+
+var num= Math.round(Math.random()*5) ;
+
+var string = colArr[num];
+
+return "#"+string;
+}
+	</script>
+</head>
+
+
+<body>
+
+<canvas id="c" width ="1000" height="1000"></canvas>
+<script>start();
+</script>
+
+</body>
+
+</html>

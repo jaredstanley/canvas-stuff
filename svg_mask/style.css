@@ -1,0 +1,18 @@
+body{
+	margin: 0;
+}
+
+.captain{
+
+   -webkit-mask-box-image: url(captain_egg_donut.svg);
+ }
+
+ .move{
+
+   -webkit-mask-box-image: url(test3.svg);
+ }
+
+  .move2{
+
+   -webkit-mask-box-image: url(iku.svg);
+ }

@@ -1,0 +1,19 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" 
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="500px" height="500px"  viewBox="0 0 500 500"
+     xmlns="http://www.w3.org/2000/svg" version="1.1">
+  <desc>Example anim01 - demonstrate animation elements</desc>
+  <!-- The following illustrates the use of the 'animate' element
+        to animate a rectangles x, y, and width attributes so that
+        the rectangle grows to ultimately fill the viewport. -->
+  <rect id="RectElement" x="100" y="100" width="10" height="10"
+        fill="rgb(100,10,20)"  >
+    <animate attributeName="x" attributeType="XML" begin="3s" dur="4s" fill="freeze" from="100" to="0" />
+    <animate attributeName="y" attributeType="XML" begin="3s" dur="1s" fill="freeze" from="100" to="0" />
+    <animate attributeName="width" attributeType="XML" begin="0s" dur="9s" fill="freeze" from="10" to="500" />
+    <animate attributeName="height" attributeType="XML" begin="0s" dur="9s" fill="freeze" from="10" to="500" />
+  </rect>
+
+
+</svg>
