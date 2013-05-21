@@ -9,7 +9,7 @@ curX = 0,
 curY = 0, 
 size = 15,
 dotArray = [];
-
+start();
 //
 function start(){
 	b_canvas = document.getElementById("c");

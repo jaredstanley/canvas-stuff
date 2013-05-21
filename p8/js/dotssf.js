@@ -61,7 +61,7 @@ function createDots(){
 			// colorInc-=.33;
 		tgtX = Math.random()*600;
 		tgtY = Math.random()*600;
-		rad = 1;
+		rad = 3;
 		// rad = Math.round(Math.random()*5)+3;
 	    var dot = new Dot(i, 
 	    				rad, 
@@ -93,7 +93,8 @@ function update() {
 	    if(hit>1){
 	    	main_context.fillStyle = "#333333";	
 	    }else{
-	    	main_context.fillStyle = item.color;
+	    	main_context.fillStyle = "#FF5721";
+	    	// main_context.fillStyle = item.color;
 	    }
 
 
@@ -140,8 +141,8 @@ function initSrcImage(){
       
       };
       // sourceImage.src = 'tree.jpg';
-      sourceImage.src = 'dust.gif';
-      // sourceImage.src = 'sf.gif';
+      // sourceImage.src = 'dust.gif';
+      sourceImage.src = 'sf.gif';
 }
 
 
