@@ -8,8 +8,9 @@ freqy = .5,
 amplitude = 0,
 radius = 2,
 curx = 0,
+increment = .3,
 cury = 0;
-var width;
+var center;
 
 window.onload = function(){
 	start();
@@ -24,28 +25,29 @@ function start(){
 }
 
 function init(){
-	width = main_canvas.width;
+	center = main_canvas.width/2;
 	main_context.fillStyle = '#BFffff';
 }
   
 function initTimer(){
 	window.requestAnimationFrame(initTimer);
+	// update2();
 	update();
 }
 
 function update() {
 	//main_context.clearRect(0,0,width,width);
 	main_context.beginPath();
-	amplitude+=(.3);	
-	// amplitude=200;	
+	amplitude+=(increment);
 	anglex+=freqx;
 	angley+=freqy;
+	// curx = 0;
 	curx = Math.cos(anglex)*(amplitude);
 	cury = Math.sin(angley)*(amplitude);
 	// cury = Math.tan(angley)*(amplitude);
 
-	curx+= width/2;
-	cury+= width/2;
+	curx+= center;
+	cury+= center;
 
 	main_context.arc(curx, cury, radius, 0, Math.PI*2, false);
 	main_context.fill();
@@ -61,8 +63,8 @@ function update2() {
 	curx = Math.cos(anglex)*200;
 	cury = Math.sin(angley)*amplitude;
 
-	curx+= width/2;
-	cury+= width/2;
+	curx+= center;
+	cury+= center;
 
 	main_context.arc(curx, cury, radius, 0, Math.PI*2, false);
 	main_context.fill();

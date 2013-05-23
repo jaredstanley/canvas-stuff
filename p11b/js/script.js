@@ -7,7 +7,7 @@ var cObj = new RGBAColor(0, 200, 130, 1);
 var b_canvas,
 contxt,
 newPoint;
-var speed = 10;
+var speed = 40;
 var range = 100;
 var ang = 0;
 var ang2 = 0;
