@@ -1,0 +1,20 @@
+#main { 
+	width:568px; 
+	height:252px; 
+	margin: 0;
+	padding: 0;
+    background:gray; 
+    /*background-image: url("sequence/vid_11.jpg");*/
+    background-repeat: no-repeat;
+
+}
+body{
+	margin: 0;
+}
+
+p { 
+	color:white; 
+	float:left; 
+    font-size:14px; 
+}
+

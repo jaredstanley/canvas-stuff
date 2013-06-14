@@ -1,0 +1,34 @@
+#main { 
+	width:640px; 
+	height:360px; 
+	margin: 0;
+	padding: 0;
+    background:gray; 
+    /*background-image: url("sequence/vid_11.jpg");*/
+    /*background-repeat: no-repeat;*/
+
+}
+video{
+	width:640px; 
+	height:360px; 
+	
+}
+
+canvas{
+	margin-top: 50px;
+	width:640px;
+	height:20px;
+
+
+}
+
+body{
+	margin: 0;
+}
+
+p { 
+	color:white; 
+	float:left; 
+    font-size:14px; 
+}
+
