@@ -45,18 +45,18 @@ function update() {
 	main_context.clearRect(0,0,width,width);
 	main_context.beginPath();
 	main_context.moveTo(0,width);
-	var tgt = Math.round(n*.8); // % across the surface the target point will be located
+	var tgt = Math.round(n*.88); // % across the surface the target point will be located
 	increaseVel();
 	
 	for(var i=0; i<n; i++){
 		posX[i] = spacing*i;
-		if(i==tgt){
+		if(i<tgt){
+			//water
+			v[i] = (v[i+1]);
+		}else if(i==tgt){
 			//target
 			ang+=freq;
 			v[i] = Math.sin(ang)*vel;	
-		}else if(i<tgt){
-			//water
-			v[i] = (v[i+1]);
 		}else if(i>tgt){
 			//gelatin
 			v[i] = (v[i-1]/stiffness);
@@ -65,7 +65,7 @@ function update() {
         posY[i] = v[i] + waterlevel;
         //
         main_context.lineTo(posX[i], posY[i]);	 
-posY
+		
 	}
 	main_context.lineTo(width, width);
 	main_context.fillStyle = '#BFEFFF';
