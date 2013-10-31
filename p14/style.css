@@ -1,0 +1,33 @@
+canvas{
+	margin: 0px;
+	background-color: #889ACD;
+}
+
+body{
+	margin: 0;
+}
+
+.control{
+	/*margin: 0px;*/
+	margin-top: 5px;
+	margin-bottom: 30px;
+	/*background-color: #ffff00;*/
+	width: 320px;
+	height: 30px;
+}
+
+.slider{
+	width: 200px;
+	height: 50px;
+	float: right;
+	/*margin-top: 5px;*/
+}
+
+p{
+	margin: 0px;
+	margin-left: 10px;
+	/*background-color: #ff00CD;*/
+	width:80px;
+	float: left;
+/*	margin-top: 5px;*/
+}
