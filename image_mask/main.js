@@ -9,11 +9,11 @@ $('document').ready(function(){
 function init(){
 	console.log('init');
 	
-	var p = setInterval(move, 200);
+	var p = setInterval(move, 10);
 }
 
 function move(){
 	//console.log('move '+ nav);
-	count -= 3;
+	count --;
 	nav = $('#nav').css('left', count);
 }

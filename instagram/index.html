@@ -1,0 +1,77 @@
+<html>
+	<head>
+	  <meta charset="utf-8" />
+	  <title>Instagram</title>
+	  <link rel="stylesheet" type="text/css" href="http://reset5.googlecode.com/hg/reset.min.css">
+
+	  <style type="text/css">
+	  	#target{
+	  		background-color: red;
+	  		
+	  	}
+	  </style>
+
+	  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js">
+	  </script>
+
+	  <script type="text/javascript">
+	  	  	var tag = "kitty";
+		var count = 35;
+		var access_token = '22033045.ea9028a.eec94286a2e049429fe51c3fbc95db20';
+		var access_parameters = {access_token:access_token};
+	  $(document).ready(function() {
+	  	init();
+	  });
+
+	  function init(){
+	  	grabImages(access_parameters);
+	  }
+
+	  function grabImages(infos) {  
+	  		var instagramUrl = 'https://api.instagram.com/v1/users/' + 3719770 + '/media/recent?callback=?&count='+ count;
+
+	  		$.getJSON(instagramUrl, infos, onDataLoaded);
+	  		
+		}
+
+		function onDataLoaded(instagram_data) {
+  // 404 means nothing was found, and 200 means everything is all good so...
+  // console.log('good'+ instagram_data.meta.code);
+if(instagram_data.meta.code == 200) {
+    var photos = instagram_data.data;
+
+    if(photos.length > 0) {
+      for (var key in photos ){
+        var photo = photos[key];
+        // console.log(key +" "+ photos[key].images.standard_resolution.url);
+        $('#target').append('<img src='+ photos[key].images.thumbnail.url +'>');
+        // $('#target').append('<img src='+ photos[key].images.standard_resolution.url +'>');
+      }
+      // console.log(JSON.stringify(photos[key]));
+      console.log(photos.length);
+    }
+    else {
+      //if the photos variable doesn’t hold data
+      $('#target').append("Hmm.  I couldnt find anything!");
+    }
+}
+else  {
+      //if we didn’t get a 200 (success) request code from instagram
+      var error = data.meta.error_message;
+      $('#target').append('Something happened, Instagram said: ' + error);
+    }
+  
+}
+
+
+	  </script>
+	</head>
+
+
+	<body>
+		<p>top</p>
+	  <div id="target"></div>
+		<p>bottom</p>
+
+	</body>
+</html>
