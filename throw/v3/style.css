@@ -1,0 +1,86 @@
+@font-face {
+ /* font-family: "biko";
+  src: url(biko.otf) format("opentype");*/
+
+  font-family: "neutra";
+  src: url(NeutraDispBoldAlt.otf) format("opentype");
+}
+
+
+body{
+	background-color: #cba;
+	margin: 0px;
+	padding: 0px;
+	overflow: auto;
+	font-family: 'neutra', sans-serif;
+	color: #000;
+}
+
+#container{
+	
+	height: 480px;
+	margin-top: 0px;
+	margin-bottom: 0px;
+	margin-left: auto;
+	margin-right: auto;
+
+	background-color: #000;
+	background: url('bg.jpg') no-repeat center center;
+	
+	position: relative;
+	color: #000;
+
+}
+
+#content{
+	margin: auto;
+	width: 320px;
+}
+
+#sphere {
+	position: absolute;	
+	width: 50px;
+	height: 50px;
+	border-radius: 20px;
+	-webkit-radius: 20px;
+	/*background-color: pink;*/
+	background: url('circle.png') no-repeat center center;
+}
+
+
+@media only screen and (-webkit-min-device-pixel-ratio: 2){ 
+	#container{
+
+		background: url('bg@2x.jpg') no-repeat center center;
+		-webkit-background-size: auto 480px ;
+	}
+	#sphere{
+		background: url('circle@2x.png') no-repeat center center;
+		-webkit-background-size: 50px 50px ;
+	}
+
+}
+
+#apptitle{
+	
+	width: 145px;
+	margin: auto;
+	font-size: 32px;
+	letter-spacing: 8px;
+	z-index: 10;
+}
+
+
+
+
+
+
+
+
+#pointer{
+	position:absolute;
+	margin-top: 113px;
+}
+
+
+

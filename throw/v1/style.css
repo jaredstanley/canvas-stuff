@@ -1,0 +1,158 @@
+@font-face {
+ /* font-family: "biko";
+  src: url(biko.otf) format("opentype");*/
+
+  font-family: "neutra";
+  src: url(NeutraDispBoldAlt.otf) format("opentype");
+}
+
+
+body{
+	background-color: #000;
+	margin: 0px;
+	padding: 0px;
+	overflow: auto;
+	font-family: 'neutra', sans-serif;
+}
+
+#container{
+	
+	height: 480px;
+	margin-top: 0px;
+	margin-bottom: 0px;
+	margin-left: auto;
+	margin-right: auto;
+
+	background-color: #000;
+	background: url('bg.jpg') no-repeat center center;
+	
+	position: relative;
+	color: #fff;
+
+}
+
+#sphere {
+	position: absolute;	
+	width: 50px;
+	height: 50px;
+	border-radius: 20px;
+	-webkit-radius: 20px;
+	/*background-color: pink;*/
+	background: url('circle.png') no-repeat center center;
+}
+
+
+@media only screen and (-webkit-min-device-pixel-ratio: 2){ 
+	#container{
+
+		background: url('bg@2x.jpg') no-repeat center center;
+		-webkit-background-size: auto 480px ;
+	}
+	#sphere{
+		background: url('circle@2x.png') no-repeat center center;
+		-webkit-background-size: 50px 50px ;
+	}
+
+}
+
+#apptitle{
+	width: 145px;
+	margin: auto;
+	font-size: 32px;
+	letter-spacing: 8px;
+	z-index: 10;
+}
+
+
+#panels{
+	
+	width:300px;
+	margin: auto;
+}
+
+#panelleft{
+	float: left;
+	padding-left: 13px;
+	padding-right: 4px;
+	position: relative;
+
+}
+
+#panelleft #dayofweek{
+
+	position: absolute;
+	width: 135px;
+	text-align: center;
+	top: 7px;
+	font-size: 21px;
+}
+
+#panelleft #date{
+
+	position: absolute;
+	font-size: 75px;
+	top: 26px;
+	
+	text-align: center;
+	width: 135px;
+}
+
+#panelright{
+	float: left;
+	position: relative;
+}
+
+#panelright #month{
+
+	top: 7px;
+	position: absolute;
+	padding-left: 15px;
+	width: 135px;
+	font-size: 21px;
+}
+
+#panelright #year{
+
+	padding-left: 15px;
+	padding-top: 28px;
+	position: absolute;
+	font-size: 21px
+	
+}
+
+#panelright #status{
+
+	padding-left: 15px;
+	padding-top: 60px;
+	position: absolute;
+	width: 136px;
+	line-height: 13px;
+	font-size: 21px;
+	
+}
+
+
+#iconstrip{
+
+width: 274px;
+margin: auto;
+position: relative;
+}
+
+#datepicker{
+	position: absolute;
+}
+
+#moon{
+	width: 250px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+#pointer{
+	position:absolute;
+	margin-top: 113px;
+}
+
+
+
