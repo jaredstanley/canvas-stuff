@@ -68,7 +68,8 @@ function drawItemsInCircle(){
 		contxt.shadowBlur = 8;
 		contxt.shadowColor = 'rgba(0,0,0,0.1)';
 		contxt.closePath();
-		contxt.fill();
+		// contxt.fill();
+		contxt.stroke();
 
         //angleIncrement+=Math.random()*5;
      }
