@@ -50,17 +50,26 @@ function initTimer(){
 
 function build(){
 	main_context.clearRect(0,0,main_canvas.width, main_canvas.height);
+	var alph;
 
 	//
 	for(var i=0;i<numberOfPoints;i+=1){
 		xx=(mainRadius*Math.cos((posArr[i])*(Math.PI/180)));
 		yy=(mainRadius*Math.sin((posArr[i])*(Math.PI/180)));
 		xx+=(main_canvas.width/2);
+		if(i==1){
+			// console.log(yy);
+			alph = .5;
+		}else{
+			alph = .041;
+		}
+		
 		yy+=center+450;
+		
 		//incremented transparency fillStyle
 		// main_context.fillStyle = 'rgba(143, 121, 190, '+((i+1)*.1)+')';
 		//even fillStyle
-		main_context.fillStyle = 'rgba(0, 0, 0, '+(.041)+')';
+		main_context.fillStyle = 'rgba(0, 0, 0, '+alph+')';
 		main_context.strokeStyle = 'rgba(0,0,0,.3)';
 		main_context.lineWidth = .5;
 		main_context.beginPath();
@@ -68,7 +77,7 @@ function build(){
 		// main_context.arc(xx,yy,radius*(i*.1)+10,0,Math.PI*2,true);
 		main_context.fill();
 		main_context.stroke();
-		
+		// console.log(yy);
 		//rotate each item around the circumference
 		// posArr[i] = (posArr[i]+1)%360;
 		// if(isClicked){
@@ -80,6 +89,7 @@ function build(){
 	// 	count+=.009;
 	// 	mainRadius = Math.sin(count)*80;
 	// }
+
 	
 }
 

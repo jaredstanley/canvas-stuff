@@ -1,32 +1,216 @@
 <!DOCTYPE html>
-<html>
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-	
-
-	<title>Triangles</title>
-	
-	<script type="text/javascript" src="js/rgba-color.js" ></script>
-	<script type="text/javascript" src="js/triangle_grid.js" />
-	<script type="text/javascript">
-		var arr = new Array();
-	</script>
-
-</head>
-<body>
-
-<canvas id="c" width="1000" height="1000"></canvas>
-
-
-
-
-</body>
+<title>Canvas Playing</title>
 
 <script type="text/javascript">
-console.log("bottom of page");
-	var init = setTimeout("start()", 1000);
+
+var count = 0;
+var wCount = 0;
+var hCount = 0;
+var colArr = new Array("a9ab2e", "3b2212", "7d2f1c", "f2782e", "ffa736");
+
+var b_context,
+curX = 0,
+curY = 0, 
+w = 20,
+margin = 0,
+size = 40,
+curRowNum,
+curColor = Math.floor(Math.random()*16777215);
+//curColor = 0;
+function start(){
+var interval = setInterval(update,15);
+}
+
+function update() {
+	var b_canvas = document.getElementById("c");
+	b_context = b_canvas.getContext("2d");
 	
+	//circle
+	//b_context.arc(curX,curY,Math.random()*(w+10),0,Math.PI*2,true);
+	//b_context.arc(curX,curY,w,0,Math.PI*2,true);
+	curRowNum = curY/size;
+		if(curRowNum%2==0){
+			//even row
+			if(count%2==0){
+				drawTriangleBox("zig");
+			}else{
+				drawTriangleBox("zag");
+			}
+		}else{
+			//odd row
+			if(count%2==1){
+				drawTriangleBox("zig");
+			}else{
+				drawTriangleBox("zag");
+			}
+
+		}
+
+	//b_context.closePath();
+	
+	countIt();
+	
+	if(Math.random()*10>9){
+	
+		//randomDraw();
+	
+	}
+	//curX+=50;
+	curX = (w * 2+ margin ) * ( wCount % 20);
+	curY = (w * 2+ margin ) * Math.floor( hCount / 20);
+
+	
+	//alert(curX);
+	count++;
+	wCount++;
+	hCount++;
+
+	if(curY>1000){
+		hCount = 0;
+		curY = 0;
+	}
+
+}
+
+function drawTriangleBox(dir){
+	if(dir=="zig"){
+		b_context.fillStyle= randColor();
+		b_context.beginPath();
+		b_context.moveTo(curX, curY);
+		b_context.lineTo(curX+size, curY);
+		b_context.lineTo(curX, curY+size);
+		b_context.fill(); 
+		//
+		b_context.fillStyle= randColor();
+		b_context.beginPath();
+		b_context.moveTo(curX+size, curY);
+		b_context.lineTo(curX, curY+size);
+		b_context.lineTo(curX+size, curY+size);
+		b_context.fill();
+	}else{
+		b_context.fillStyle= randColor();
+		b_context.beginPath();
+		b_context.moveTo(curX, curY);
+		b_context.lineTo(curX+size, curY+size);
+		b_context.lineTo(curX+size, curY);
+		b_context.fill(); 
+		//
+		b_context.fillStyle= randColor();
+		b_context.beginPath();
+		b_context.moveTo(curX, curY);
+		b_context.lineTo(curX, curY+size);
+		b_context.lineTo(curX+size, curY+size);
+		b_context.fill();
+
+	}
+
+}
+
+function randomDraw(){
+
+	var tempX = (w * 2+ margin ) * ((Math.round(Math.random()*500))%20);
+	var tempY = (w * 2+ margin ) * Math.floor(Math.random()*20);
+	
+	
+	b_context.fillStyle= randColor();
+
+	//circle
+	b_context.beginPath();
+	b_context.arc(tempX,tempY,Math.random()*w,0,Math.PI*2,true);
+
+	//addShadow();
+	b_context.closePath();
+	b_context.fill(); 
+
+}
+
+function countIt(){
+  b_context.clearRect(0, 0, 150, 45);
+  b_context.lineWidth=1;
+  b_context.fillStyle="#666666";
+  b_context.font="30px sans-serif";
+  b_context.fillText(":"+count+":", 10, 30);
+  b_context.fillStyle= randColor();
+	//count++;
+
+
+}
+
+function randColor(){
+//var string = Math.round(0x2233ff*Math.random()).toString(16);
+//alert(string);
+/*
+var num= Math.round(Math.random()*5) ;
+
+var string = colArr[num];
+
+return "#"+string;
+*/
+/*
+var colorString = "";
+for(var i=0; i<6; i++){
+	colorString=colorString+(Math.floor(Math.random()*9));
+}
+
+//alert(colorString);
+//return "#"+colorString; 
+//
+//------------------------------------
+/*var chance = Math.floor(Math.random()*100);
+if(chance >= 50){
+	curColor+=chance;
+}else{
+	curColor-=chance;
+}
+
+if(curColor>16777215){
+	Math.floor(Math.random()*16777215);
+}
+if(curColor<0){
+	Math.floor(Math.random()*16777215);
+}
+
+
+return '#'+curColor.toString(16);
+*/
+//--------------------
+//return '#'+Math.floor(Math.random()*16777215).toString(16);
+//---------------------------------
+
+
+//curColor = Math.floor(Math.random()*16777215);
+var range = 10;
+var chance = Math.floor(Math.random()*range);
+//alert(chance+" "+range+" "+curColor);
+if(chance >= range/2){
+	curColor+=chance;
+}else{
+	curColor-=chance;
+}
+return '#'+curColor.toString(16);
+
+
+//------------------------
+/*curColor++;
+if(curColor>9000){
+	curColor = 0;
+}
+
+return '#'+curColor.toString(16);
+*/
+//----------------------
+}
+	</script>
+</head>
+
+
+<body>
+
+<canvas id="c" width ="1000" height="1000"></canvas>
+<script>start();
 </script>
 
+</body>
 
 </html>
