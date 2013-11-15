@@ -8,7 +8,7 @@ dotRad = 3,
 circleRad=120,
 speed = 1,
 colorsArr = ["#E4F52F","#FFBA14", "#E93707", "#C0044B","#5B0326"];
-totalCircles = 4,
+totalCircles = 5,
 curCircle = 0;
 
 var centerY, centerX, stageW, stageH;
