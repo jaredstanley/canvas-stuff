@@ -2,6 +2,7 @@
 var main_canvas,
 main_context,
 increment = .30,
+mX, mY,
 count = 0,
 xx=0, yy=0,
 posArr = [],
@@ -11,8 +12,9 @@ mainRadius=200,
 angleIncrement,
 isClicked = true;
 isPressed = false,
+isAligned = true,
 colorArr = ['#EC008B','#A42B39','#F6893E', '#CE118C', '#FFF100','#ED1847'];
-
+var beginDragMouseX;
 var curPos = 0;
 
 var center;
@@ -22,76 +24,98 @@ window.onload = function(){
 }
 //
 function start(){
+	//init vars
 	main_canvas = document.getElementById("c");
 	main_context = main_canvas.getContext("2d");
-
 	center = main_canvas.width/2;
-	//
+	//more init
 	setItemCount();
-
-	initTimer();
 	addListeners();
+	//go time
+	initTimer();
+
 }
 
 function setItemCount(){
-	//radius = parseInt(Math.random()*80)+20;
 	posArr = [];
 	angleIncrement=360/numberOfPoints;
 	for(var i = 0; i<numberOfPoints; i+=1){
-		posArr[i] = [];
-		posArr[i].origAngle = (angleIncrement*i+270)%360;
-		posArr[i].curAngle = posArr[i].origAngle;
-
+		var ang = (angleIncrement*i+270)%360;
+		posArr[i] = {
+			origAngle : ang,
+			curAngle : ang,
+			isPressed : false
+		}
 	}
 }
 
-function initTimer(){
-	
+function initTimer(){	
 	window.requestAnimationFrame(initTimer);
-	// update2();
-	//update();
 	build();
 }
 
 
 function build(){
 	main_context.clearRect(0,0,main_canvas.width, main_canvas.height);
-	var alph;
 
-	//
 	for(var i=0;i<posArr.length;i+=1){
-		xx=(mainRadius*Math.cos((posArr[i].curAngle)*(Math.PI/180)));
-		yy=(mainRadius*Math.sin((posArr[i].curAngle)*(Math.PI/180)));
-		xx+=(main_canvas.width/2);
-		yy+=center+450;
-		posArr[i].x = xx;
-		posArr[i].y = yy;
-		//even fillStyle
-		var g = main_context.createLinearGradient(xx,yy,200,200);
-		g.addColorStop(0,colorArr[i]);
-		g.addColorStop(1,colorArr[(i+1)%2]);
-		main_context.fillStyle = g;
-		// main_context.fillStyle = colorArr[i];
-		main_context.strokeStyle = colorArr[(i+3)%3];
-		main_context.lineWidth = 6;
-		main_context.beginPath();
-		var rad = radius;
-		rad+=Math.max(0,450-yy);
-		posArr[i].radius = rad;
-		main_context.arc(xx,yy,rad,0,Math.PI*2,true);
-		main_context.fill();
-		main_context.stroke();
+		calculateNavItemPosition(i);	
+		
+		styleNavItem(i);
+		
+		calculateNavItemRadius(i);
+		
+		drawNavItem(i);
+
+		drawNavCenter(i);
 		// console.log(yy);
 	}
-	//this line scales the main radius, creating overlapping stroked shapes
-	// if(isClicked){
-	// 	count+=.009;
-	// 	mainRadius = Math.sin(count)*80;
-	// }
+}
 
+function drawNavCenter(i){
+		var item = posArr[i];
+
+		if(item.isPressed){
+			xx = mX;
+			yy = mY;			 
+		}
+	main_context.beginPath();
+	main_context.arc(xx,yy,item.radius*.9,0,Math.PI*2,true);
+	main_context.fill();
 	
 }
 
+function drawNavItem(i){
+	main_context.arc(xx,yy,posArr[i].radius,0,Math.PI*2,true);
+	// main_context.fill();
+	main_context.stroke();
+		
+}
+
+function calculateNavItemRadius(i){
+	var rad = radius;
+	rad+=Math.max(0,450-yy);
+	posArr[i].radius = rad;	
+}
+function styleNavItem(i){
+	var g = main_context.createLinearGradient(xx,yy,200,200);
+		g.addColorStop(0,colorArr[i]);
+		g.addColorStop(1,colorArr[(i+1)%2]);
+		main_context.fillStyle = g;
+		main_context.strokeStyle = colorArr[(i+3)%3];
+		main_context.lineWidth = 6;
+		main_context.beginPath();
+		
+}
+function calculateNavItemPosition(i){
+	xx=(mainRadius*Math.cos((posArr[i].curAngle)*(Math.PI/180)));
+	yy=(mainRadius*Math.sin((posArr[i].curAngle)*(Math.PI/180)));
+	xx+=(main_canvas.width/2);
+	yy+=center+450;
+	posArr[i].x = xx;
+	posArr[i].y = yy;
+
+}
 
 function addListeners(){
 
@@ -106,10 +130,12 @@ function addListeners(){
 
 
 function doPressed(e){
+	console.log("pressed");
+	beginDragMouseX = e.pageX;
 	isPressed = true;
 	e.preventDefault();
-	var mX = e.pageX;
-	var mY = e.pageY;
+	mX = e.pageX;
+	mY = e.pageY;
 	var item;
 	var dx, dy;
 	var dist;
@@ -120,6 +146,7 @@ function doPressed(e){
 		dist = Math.sqrt(dx*dx+dy*dy);
 		if(dist < item.radius){
 			//you're touching me bro
+			item.isPressed = true;
 			console.log(i);			
 		}
 	}
@@ -127,12 +154,19 @@ function doPressed(e){
 
 function doMove(e){
 	e.preventDefault();
+	mX = e.pageX;
+	mY = e.pageY;
 	if(isPressed){
 		var newX = e.pageX;
+		var draggableArea = Math.abs(main_canvas.width - beginDragMouseX);
 		var pct = newX / main_canvas.width;
-		
+		// var n = newX - beginDragMouseX;
+		// console.log(n);
 		for(var i=0;i<numberOfPoints;i+=1){
-			posArr[i].curAngle = posArr[i].origAngle+(360*pct);
+			var tgt = posArr[i].origAngle+(draggableArea*pct)
+			var cur = posArr[i].curAngle;
+			// posArr[i].curAngle += (tgt-cur)/11;
+			posArr[i].curAngle = tgt;
 		}
 	}
 }
@@ -151,4 +185,8 @@ function doTouchEnd(e){
 
 function clicked(){
 	isClicked = !isClicked;
+
+	for (var i = 0; i < posArr.length; i++) {
+		posArr[i].isPressed = false;
+	}
 }
